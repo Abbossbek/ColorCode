@@ -1,0 +1,29 @@
+﻿<Window x:Class="ColorCode.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ColorCode"
+        mc:Ignorable="d"
+        Title="COLOR CODE" Height="500" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+
+    <Grid x:Name="MainGrid" Margin="2,0,1.6,0" Height="469" VerticalAlignment="Top">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.1,0.5" StartPoint="0,0.1">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FF081040" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>
+        <Button Content="Colors" HorizontalAlignment="Left" Margin="26,359,0,0" VerticalAlignment="Top" Width="202" Height="63" FontSize="20" Click="Button_Click"/>
+        <TextBox x:Name="txtCode" Height="46" Margin="116,86,0,0" TextWrapping="Wrap" Text="Choose color" VerticalAlignment="Top" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="254"/>
+        <TextBox x:Name="txtARGB" Height="46" Margin="116,177,0,0" TextWrapping="Wrap" Text="Choose color" VerticalAlignment="Top" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="254"/>
+        <Label x:Name="label" Content="COLOR CODE" Margin="116,44,120,0" VerticalAlignment="Top" FontSize="20" HorizontalContentAlignment="Center" Width="254" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+        <Label x:Name="label1" Content="ARGB" Margin="116,135,120,0" VerticalAlignment="Top" FontSize="20" HorizontalContentAlignment="Center" Width="254" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+        <TextBox x:Name="txtRGBA" Height="46" Margin="116,269,0,0" TextWrapping="Wrap" Text="Choose color" VerticalAlignment="Top" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="254"/>
+        <Label x:Name="label2" Content="RGBA" Margin="118,228,118,0" VerticalAlignment="Top" FontSize="20" HorizontalContentAlignment="Center" Width="254" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+        <Button x:Name="btnScreen" Click="btnScreen_Click" Content="Screenshot" HorizontalAlignment="Left" Margin="251,359,0,0" VerticalAlignment="Top" Width="202" Height="63" FontSize="20" />
+
+    </Grid>
+</Window>
