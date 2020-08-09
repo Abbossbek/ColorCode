@@ -5,8 +5,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Forms;
 using System.Drawing;
-using System.IO;
 using System.Windows.Interop;
+using System.Windows.Shapes;
+using System.Windows.Controls;
 
 namespace ColorCode
 {
@@ -26,7 +27,6 @@ namespace ColorCode
             colorDialog.ShowDialog();
 
             ColorView(colorDialog.Color);
-            
         }
 
         private void ColorView(System.Drawing.Color color)
@@ -70,7 +70,8 @@ namespace ColorCode
         }
 
         Window window;
-        Bitmap Screenshot;
+        Border border;
+        Bitmap screenshot;
         private void btnScreen_Click(object sender, RoutedEventArgs e)
         {
 
@@ -78,29 +79,40 @@ namespace ColorCode
             window.WindowStyle=WindowStyle.None;
             window.ResizeMode = ResizeMode.NoResize;
             window.WindowState = WindowState.Maximized;
+            window.Show();
+            int width = (int)SystemInformation.MaxWindowTrackSize.Width-20, height = (int)SystemInformation.MaxWindowTrackSize.Height-20;
+            window.WindowState = WindowState.Minimized;
 
-            int width=(int) SystemInformation.MaxWindowTrackSize.Width, height=(int)SystemInformation.MaxWindowTrackSize.Height;
-
-            Screenshot = TakeScreenShot(0, 0, width, height);
+            screenshot = TakeScreenShot(0, 0, width, height);
+            border = new Border();
+            border.BorderThickness = new Thickness(10);
             window.Background = new ImageBrush(Imaging.CreateBitmapSourceFromHBitmap(
-                Screenshot.GetHbitmap(), IntPtr.Zero,
-                Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions())) { Stretch=Stretch.Fill  };
+                screenshot.GetHbitmap(), IntPtr.Zero,
+                Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()))
+            { Stretch = Stretch.Fill };
+
+            window.Content = border;
             window.ShowInTaskbar = false;
-
-
             window.MouseDown += Window_MouseDown;
-
-            window.Owner = this;
-            window.ShowDialog();
-
+            window.MouseMove += Window_MouseMove;
+            window.WindowState = WindowState.Maximized;
         }
 
+        private void Window_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            System.Drawing.Point clickPoint = System.Windows.Forms.Control.MousePosition;
+            border.BorderBrush = new SolidColorBrush(ToMediaColor(screenshot.GetPixel((int)clickPoint.X, (int)clickPoint.Y)));
+        }
+        private System.Windows.Media.Color ToMediaColor(System.Drawing.Color color)
+        {
+            return System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B);
+        }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             window.Close();
 
-            System.Drawing.Point clickPoint = System.Windows.Forms.Control.MousePosition; ;
-            Bitmap image = Screenshot;
+            System.Drawing.Point clickPoint = System.Windows.Forms.Control.MousePosition; 
+            Bitmap image = screenshot;
             System.Drawing.Color color = image.GetPixel((int)clickPoint.X, (int)clickPoint.Y);
             ColorView(color);
         }
