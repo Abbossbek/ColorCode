@@ -74,7 +74,6 @@ namespace ColorCode
         Bitmap screenshot;
         private void btnScreen_Click(object sender, RoutedEventArgs e)
         {
-
             window = new Window();
             window.WindowStyle=WindowStyle.None;
             window.ResizeMode = ResizeMode.NoResize;
